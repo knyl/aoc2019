@@ -19,7 +19,7 @@ fun createMap(instructions: List<String>): ResultType {
             'L' -> (coord.first downTo (coord.first - steps)).toList().map { x -> Pair(x, coord.second) }
             else -> emptyList()
         }
-        places.forEachIndexed { i, coord -> if (!distances.containsKey(coord)) distances[coord] = i + stepCount + 1 }
+        places.forEachIndexed { i, coord -> if (!distances.containsKey(coord)) distances[coord] = i + stepCount }
         set.addAll(places)
         stepCount += steps
         coord = places.last()
@@ -46,5 +46,5 @@ val crossings = crossingsAll.minus(Pair(0, 0))
 
 val distance = crossings.fold(Int.MAX_VALUE) { distance, coord -> if ((res1.first.getOrDefault(coord, Int.MAX_VALUE) + res2.first.getOrDefault(coord, Int.MAX_VALUE)) < distance) res1.first.getOrDefault(coord, Int.MAX_VALUE) + res2.first.getOrDefault(coord, Int.MAX_VALUE) else distance }
 
-System.out.println("Result: " + distance - 2) // I seem to have a off-by-one error somewhere..
+System.out.println("Result: " + distance) // I seem to have a off-by-one error somewhere..
 
