@@ -46,5 +46,5 @@ val crossings = crossingsAll.minus(Pair(0, 0))
 
 val distance = crossings.fold(Int.MAX_VALUE) { distance, coord -> if ((res1.first.getOrDefault(coord, Int.MAX_VALUE) + res2.first.getOrDefault(coord, Int.MAX_VALUE)) < distance) res1.first.getOrDefault(coord, Int.MAX_VALUE) + res2.first.getOrDefault(coord, Int.MAX_VALUE) else distance }
 
-System.out.println("Result: " + distance) // I seem to have a off-by-one error somewhere..
+System.out.println("Result: " + distance)
 
