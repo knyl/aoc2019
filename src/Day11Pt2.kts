@@ -17,6 +17,7 @@ class Program(program: MutableMap<Long, Long>) {
 
     fun execute(input: Int): Pair<Long, Boolean> {
         //System.out.println("Instruction: " + nextInd)
+        val res = mutableListOf<Long>()
         while (prog[nextInd] != 99.toLong()) {
 
             val instruction = prog[nextInd]
@@ -29,6 +30,7 @@ class Program(program: MutableMap<Long, Long>) {
             val mode3 = instructionStr[instructionStr.length - 5]
             val pos1: Long = if (mode1 == '0') get(prog, nextInd + 1) else if (mode1 == '1') nextInd + 1 else relBase + get(prog, nextInd + 1)
             val pos2: Long = if (mode2 == '0') get(prog, nextInd + 2) else if (mode2 == '1') nextInd + 2 else relBase + get(prog, nextInd + 2)
+            val pos3: Long = if (mode2 == '0') get(prog, nextInd + 3) else if (mode2 == '1') nextInd + 3 else relBase + get(prog, nextInd + 3)
 
             //System.out.println("Opcode: $opcode")
             //System.out.println("Pos1 $pos1 pos2 $pos2")
@@ -99,7 +101,6 @@ class Program(program: MutableMap<Long, Long>) {
                 99 -> {
                     return Pair(-1, false)
                 }
-
                 else -> return Pair(-1, false)
             }
         }
@@ -156,7 +157,7 @@ var executing = true
 val map = mutableMapOf<Pair<Int, Int>, Int>()
 var pos = Pair(0, 0)
 var direction = DIRECTION.UP
-map[pos] = 0
+map[pos] = 1
 
 while (executing) {
     val currColor = map.getOrDefault(pos, 0)
@@ -167,6 +168,24 @@ while (executing) {
     executing = paintColour.second && nextDirection.second
     direction = getDirection(direction, nextDirection.first.toInt())
     pos = getNextPos(pos, direction)
+}
+
+val minX: Int = map.entries.minBy { it.key.first }!!.key.first
+val maxX: Int = map.entries.maxBy { it.key.first }!!.key.first
+val minY: Int = map.entries.minBy { it.key.second }!!.key.second
+val maxY: Int = map.entries.maxBy { it.key.second }!!.key.second
+
+
+for (y in minY..maxY) {
+    for (x in minX..maxX) {
+        val colour = map.getOrDefault(Pair(x, y), 0)
+        if (colour == 0)
+            System.out.print(" ")
+        else
+            System.out.print("O")
+
+    }
+    System.out.println()
 }
 
 System.out.println("Result: " + map.size)
