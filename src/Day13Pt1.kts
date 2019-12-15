@@ -132,15 +132,6 @@ fun getDirection(currDir: DIRECTION, turn: Int): DIRECTION {
     return DIRECTION.UP
 }
 
-fun getNextPos(pos: Pair<Int, Int>, dir: DIRECTION): Pair<Int, Int> {
-    when (dir) {
-        DIRECTION.UP -> return Pair(pos.first, pos.second + 1)
-        DIRECTION.LEFT -> return Pair(pos.first - 1, pos.second)
-        DIRECTION.DOWN -> return Pair(pos.first, pos.second - 1)
-        DIRECTION.RIGHT -> return Pair(pos.first + 1, pos.second)
-    }
-}
-
 
 if (args.size != 1) {
     System.out.println("Need to provide an input file!")
