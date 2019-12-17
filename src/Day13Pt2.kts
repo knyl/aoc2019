@@ -1,6 +1,7 @@
 #!/usr/bin/env kscript
 
 import java.io.File
+import kotlin.text.StringBuilder
 
 enum class STATUS {
     RUNNING, WAITING_FOR_INPUT, HALTED, ERROR
@@ -150,13 +151,15 @@ fun getTile(tileLong: Long): Char {
 fun printMap(map: Map<Pair<Long, Long>, Long>) {
     val xMax = map.keys.maxBy { it.first }!!.first
     val yMax = map.keys.maxBy { it.second }!!.second
+    val stringBuilder = StringBuilder()
     for (y in 0..yMax) {
         for (x in 0..xMax) {
             val tile = getTile(map.getOrDefault(Pair(x, y), 0.toLong()))
-            System.out.print(tile)
+            stringBuilder.append(tile)
         }
-        System.out.println()
+        stringBuilder.append("\n")
     }
+    System.out.println(stringBuilder.toString())
 }
 
 if (args.size != 1) {
